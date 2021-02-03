@@ -38,6 +38,10 @@ Once you have that, to install all dependencies, run `yarn`.
 
 Running `yarn start` will run the application.
 
+Documentation pages of interest:
+https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions
+https://www.typescriptlang.org/docs/handbook/generics.html
+
 ### What's the problem with Rentals?
 
 We have a small Rental application which is designed to print a
