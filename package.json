@@ -4,5 +4,8 @@
   "description": "An exercise in union types, refactoring and data modeling in Typescript",
   "main": "index.js",
   "author": "Chris D'Aloisio",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
 }
