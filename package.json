@@ -1,0 +1,8 @@
+{
+  "name": "data-modeling-deep-dive",
+  "version": "1.0.0",
+  "description": "An exercise in union types, refactoring and data modeling in Typescript",
+  "main": "index.js",
+  "author": "Chris D'Aloisio",
+  "license": "MIT"
+}
