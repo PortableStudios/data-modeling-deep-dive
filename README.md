@@ -10,7 +10,7 @@ future.
 Some of the topics that will be covered include:
 * Data modeling
 * Generics
-* The <Option> or <Maybe> type
+* The `<Option>` or `<Maybe>` type
 * Union types
 
 If you have not used TypeScript before in the past, have no fear -
