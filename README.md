@@ -26,8 +26,8 @@ small glossary at the bottom of the page.
 
 * Getting started
 * What's the problem with Rentals?
-* Implement the `printRental` function
-* Refactoring the `printRental` function
+* Implement the `rentalToString` function
+* Refactoring the `rentalToString` function
 * Model a deck of cards
 
 ### Getting Started
@@ -40,24 +40,30 @@ Running `yarn start` will run the application.
 
 ### What's the problem with Rentals?
 
-Let's take a look at our small rental application.
+We have a small Rental application which is designed to print a
+human-readable and friendly formatted string to a user via the console.
 
-From a business perspective there are 3 states:
-* No option selected
-* Option selected but not described
-* Option selected and described
-
-### Implement the `printRental` function
+We have some initial types and modeling that has been done for us, but
+we are missing the implementation of the most critical function, to
+actually format the `Rental` data model to a string!
 
 
+### Implement the `rentalToString` function
 
-### Refactoring the `printRental` function
+Follow exercise 1 in `app.js`
 
-...
+
+### Refactoring the `rentalToString` function
+
+Follow exercise 2 in `app.js`
 
 ### Model a deck of cards
 
-...
+If you have finished those two challenges, try to model a standard
+playing deck of cards so that it is impossible to construct an `invalid`
+card.
+
+Hint: How do you represent the Joker?
 
 ## Fin
 
