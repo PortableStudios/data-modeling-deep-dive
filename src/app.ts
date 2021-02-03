@@ -1,7 +1,7 @@
 // INTRODUCTION
+//
 // We'll run through what each of these interfaces and helper functions are for
 // and why we might want to use them.
-
 
 // This `None` interface represents a value that is non-existent. It
 // doesn't contain another value that we can access at a later time.
@@ -33,6 +33,10 @@ const assertNever = (x: never): never => {
   throw new Error(x)
 }
 
+
+
+// DATA MODELS
+//
 // Here are the types for the rental model that we'll be working
 // with today.
 type Rental =
@@ -46,6 +50,9 @@ type RentalOption =
   , description: Option<string>
   }
 
+
+
+// SAMPLE RECORDS
 // Here is some sample data records that you can experiment with.
 const rental1: Rental = {
   date: new Date("2020-12-09"),
@@ -69,6 +76,8 @@ const rental3: Rental = {
     description: some("3-door two-seat coupe")
   })
 }
+
+
 
 
 // EXERCISE 1
