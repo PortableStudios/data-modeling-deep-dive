@@ -1,4 +1,4 @@
-namespace Exercise1 {
+namespace Exercise2 {
   const assertNever = (x: never): never => {
     throw new Error(x)
   }
@@ -72,4 +72,4 @@ namespace Exercise1 {
   }
 }
 
-export default Exercise1
+export default Exercise2
