@@ -18,15 +18,15 @@ namespace Exercise3 {
 
   const createCard = (suit: Suit) => (rank: Rank): Card => ({rank: rank, suit: suit})
 
-  const createDeck = (): Deck => {
-    const suit: Suit[] = ['hearts', 'spades', 'diamonds', 'clubs']
-    const rank: Rank[] = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king']
+  const suits: Suit[] = ['hearts', 'spades', 'diamonds', 'clubs']
+  const ranks: Rank[] = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king']
+  const joker: Joker = 'joker'
 
-    const joker: Joker = 'joker'
+  const createDeck = (): Deck => {
     const standardCards = pipe(
       A.of(createCard),
-      A.ap(suit),
-      A.ap(rank)
+      A.ap(suits),
+      A.ap(ranks)
     )
 
     return [...standardCards, joker, joker]
