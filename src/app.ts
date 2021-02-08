@@ -39,10 +39,18 @@ const assertNever = (x: never): never => {
 //
 // Here are the types for the rental model that we'll be working
 // with today.
+type RentalState = Rental | RentalWithOption
+type SansTag<A> = Omit<A, '_tag'>
 type Rental =
-  { date: Date
-  , option: Option<RentalOption>
+  {
+    _tag: "Rental"
+    date: Date
+  // , option: Option<RentalOption>
   }
+type RentalWithOption = SansTag<Rental> & {
+  _tag: "RentalWithOption"
+  option: RentalOption
+}
 
 type RentalOption =
   { name: string
@@ -55,33 +63,31 @@ type RentalOption =
 // SAMPLE RECORDS
 // Here is some sample data records that you can experiment with.
 const rental1: Rental = {
+  _tag: "Rental",
   date: new Date("2020-12-09"),
-  option: none,
 }
 
-const rental2: Rental = {
+const rental2: RentalWithOption = {
+  _tag: "RentalWithOption",
   date: new Date("2018-04-21"),
-  option: some({
+  option: {
     name: "Kia Rio 2015",
     id: "K-RIO-2015",
     description: none
-  })
+  }
 }
 
-const rental3: Rental = {
-  date: new Date("1987-08-12"),
-  option: some({
-    name: "Datsun 280Z",
-    id: "D-280Z-1982",
-    description: some("3-door two-seat coupe")
-  })
-}
-
-
-
+// const rental3: Rental = {
+//   date: new Date("1987-08-12"),
+//   option: some({
+//     name: "Datsun 280Z",
+//     id: "D-280Z-1982",
+//     description: some("3-door two-seat coupe")
+//   })
+// }
 
 // EXERCISE 1
-const rentalToString = (rental: Rental): string => {
+const rentalToString = (rental: RentalState): string => {
   // TODO: Implement the function that will return a customised
   // string containing each of the possible elements.
   // eg. date + id + name + description
@@ -89,7 +95,11 @@ const rentalToString = (rental: Rental): string => {
   // Hint: You will need to either write a guard clause or
   // use a switch statement in order to access the values
   // in a union type.
-  return "TODO: " + rental
+  switch (rental._tag) {
+    case "Rental":
+  }
+
+  return "TODO: " + rental._tag
 }
 
 // EXERCISE 2
@@ -113,11 +123,26 @@ const rentalToString = (rental: Rental): string => {
 // This application gets a list of rentals and displays
 // them in a display-friendly format in the console.
 const runApplication = () => {
-  const getRentals = [rental1, rental2, rental3]
+  const getRentals = [rental1, rental2]
 
   for (let rental of getRentals) {
     console.log(rentalToString(rental))
   }
 }
+
+
+
+// Deck of Cards
+
+type CardSuit = 'Club'|'Diamond'|'Heart'|'Spade'
+type Rank = 'Ace'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9'|'Jack'|'Queen'|'King'
+type NumberCard = {Suit: CardSuit, Rank: Rank}
+type Joker = 'Joker'
+type Card = NumberCard|Joker
+type Deck = Card[]
+
+let Card: Card = 'Joker'
+let Card1: Card = {Suit: 'Club', Rank: "4"}
+let Desk: Deck = [Card, Card1];
 
 runApplication()
