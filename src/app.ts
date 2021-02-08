@@ -33,52 +33,73 @@ const assertNever = (x: never): never => {
   throw new Error(x)
 }
 
-
-
 // DATA MODELS
-//
 // Here are the types for the rental model that we'll be working
 // with today.
-type Rental =
-  { date: Date
-  , option: Option<RentalOption>
-  }
+type Rental = RentalNoOption | RentalWithOption | RentalWithOptionDescribed;
 
-type RentalOption =
-  { name: string
-  , id: string
-  , description: Option<string>
-  }
+type RentalBase = {
+  date: Date,
+}
 
+type RentalNoOption = RentalBase & {
+  _tag: 'RentalNoOption',
+}
+
+type RentalWithOption = RentalBase & {
+  _tag: 'RentalWithOption',
+  option: RentalOptionNotDescribed
+}
+
+type RentalWithOptionDescribed = RentalBase & {
+  _tag: 'RentalWithOptionDescribed',
+  option: RentalOption
+}
+
+type RentalOptionNotDescribed = {
+  name: string,
+  id: string,
+}
+
+type RentalOption = { 
+  description: string
+} & RentalOptionNotDescribed;
 
 
 // SAMPLE RECORDS
 // Here is some sample data records that you can experiment with.
-const rental1: Rental = {
+
+const rental1: RentalNoOption = {
+  _tag: 'RentalNoOption',
   date: new Date("2020-12-09"),
-  option: none,
 }
 
-const rental2: Rental = {
+const rental2: RentalWithOption = {
+  _tag: 'RentalWithOption',
   date: new Date("2018-04-21"),
-  option: some({
+  option: {
     name: "Kia Rio 2015",
     id: "K-RIO-2015",
-    description: none
-  })
+  }
 }
 
-const rental3: Rental = {
+const rental3: RentalWithOptionDescribed = {
+  _tag: 'RentalWithOptionDescribed',
   date: new Date("1987-08-12"),
-  option: some({
+  option: {
     name: "Datsun 280Z",
     id: "D-280Z-1982",
-    description: some("3-door two-seat coupe")
-  })
+    description: "3-door two-seat coupe"
+  }
 }
 
+function isNone(x: Option<never>): x is None {
+  return x._tag === "None";
+}
 
-
+function isSome(x: Option<any>): x is Some<any> {
+  return x._tag === "Some";
+}
 
 // EXERCISE 1
 const rentalToString = (rental: Rental): string => {
@@ -89,7 +110,35 @@ const rentalToString = (rental: Rental): string => {
   // Hint: You will need to either write a guard clause or
   // use a switch statement in order to access the values
   // in a union type.
-  return "TODO: " + rental
+  
+  // Exercise 1:
+  // const id = isSome(rental.option) ? rental.option.value.id : '';
+  // const name = isSome(rental.option) ? rental.option.value.name : '';
+  // const description = isSome(rental.option) && isSome(rental.option.value.description) ? rental.option.value.description.value : '';
+
+  // function assertNever(x: never): never {
+  //   throw new Error("Unexpected object: " + x);
+  // }
+  
+  // return "TODO: " + rental.date + id + name + description;
+
+  // Exercise 2:
+  let rentalString = "TODO: "
+
+  switch(rental._tag) {
+    case 'RentalNoOption': 
+    rentalString = rentalString.concat(rental.date.toString());
+      return rentalString;
+    case 'RentalWithOption':
+      rentalString = rentalString.concat(`${rental.date.toString()} ${rental.option.id} ${rental.option.name}`);
+      return rentalString;
+    case 'RentalWithOptionDescribed':
+      rentalString = rentalString.concat(`${rental.date.toString()} ${rental.option.id} ${rental.option.name} ${rental.option.description}`);
+      return rentalString;
+    default:
+      assertNever(rental);
+      return '';
+  }
 }
 
 // EXERCISE 2
