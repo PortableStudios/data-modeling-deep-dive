@@ -52,36 +52,54 @@ type RentalOption =
 
 
 
+type TRentalNoOption = {
+  _tag: "TRentalNoOption"
+  date: Date
+}
+
+type TRentalOptionNotDescribed = {
+  _tag: "TRentalOptionNotDescribed"
+  date: Date
+  name: string
+  id: string
+}
+
+type TRentalOptionDescribed = {
+  _tag: "TRentalOptionDescribed"
+  date: Date
+  name: string
+  id: string
+  description: string
+}
+type TRental = TRentalNoOption | TRentalOptionNotDescribed | TRentalOptionDescribed;
+
 // SAMPLE RECORDS
 // Here is some sample data records that you can experiment with.
-const rental1: Rental = {
+const rental1: TRental = {
+  _tag: "TRentalNoOption",
   date: new Date("2020-12-09"),
-  option: none,
 }
 
-const rental2: Rental = {
+const rental2: TRental = {
   date: new Date("2018-04-21"),
-  option: some({
-    name: "Kia Rio 2015",
-    id: "K-RIO-2015",
-    description: none
-  })
+  _tag: "TRentalOptionNotDescribed",
+  name: "Kia Rio 2015",
+  id: "K-RIO-2015",
 }
 
-const rental3: Rental = {
+const rental3: TRental = {
   date: new Date("1987-08-12"),
-  option: some({
-    name: "Datsun 280Z",
-    id: "D-280Z-1982",
-    description: some("3-door two-seat coupe")
-  })
+  _tag: "TRentalOptionDescribed",
+  name: "Datsun 280Z",
+  id: "D-280Z-1982",
+  description: "3-door two-seat coupe",
 }
 
 
 
 
 // EXERCISE 1
-const rentalToString = (rental: Rental): string => {
+const rentalToString = (rental: TRental): string => {
   // TODO: Implement the function that will return a customised
   // string containing each of the possible elements.
   // eg. date + id + name + description
@@ -89,7 +107,24 @@ const rentalToString = (rental: Rental): string => {
   // Hint: You will need to either write a guard clause or
   // use a switch statement in order to access the values
   // in a union type.
-  return "TODO: " + rental
+  switch (rental._tag){
+    case "TRentalNoOption":
+      return `${rental.date}: No option`
+    case "TRentalOptionNotDescribed":
+      return `${rental.date}: ${rental.id} ${rental.name}`;
+    case "TRentalOptionDescribed":
+      return `${rental.date}: ${rental.id} ${rental.name} ${rental.description}`;
+  }
+  // if (rental.option._tag==='Some'){
+  //   if (rental.option.value.description._tag === 'Some'){
+  //     return `${rental.date}: ${rental.option.value.id} ${rental.option.value.name} ${rental.option.value.description.value}`;
+  //   }
+  //   return `${rental.date}: ${rental.option.value.id} ${rental.option.value.name}`;
+  // }else{
+  //   return `${rental.date}: No option`
+  // }
+  
+  //return "TODO: " + rental
 }
 
 // EXERCISE 2
